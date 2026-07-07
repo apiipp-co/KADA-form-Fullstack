@@ -11,6 +11,7 @@ const postSchema = new mongoose.Schema(
     content: {
       type: String,
       required: [true, "Please add content"],
+      trim: true,
     },
     category: {
       type: String,
@@ -19,7 +20,7 @@ const postSchema = new mongoose.Schema(
         "General",
         "Web Dev",
         "AI/ML",
-        "Devops",
+        "DevOps",
         "UI/UX",
         "Q&A",
         "Project",
@@ -27,12 +28,14 @@ const postSchema = new mongoose.Schema(
       default: "General",
     },
     author: {
-      type: String,
-      required: [true, "Please add an author name"],
-      trim: true,
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, "Please provide an author"],
+      ref: "User",
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  }
 );
 
 module.exports = mongoose.model("Post", postSchema);
